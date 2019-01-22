@@ -11,6 +11,9 @@ public class moveit : MonoBehaviour
     public float jumpForce = 1000f;
     public Transform groundCheck;
 
+    Vector3 startPostion;
+
+    private const float slowMotion = 1;
 
     private bool grounded = false;
   
@@ -22,6 +25,8 @@ public class moveit : MonoBehaviour
     {
   
         rb2d = GetComponent<Rigidbody2D>();
+        startPostion = gameObject.transform.position;
+
     }
 
     // Update is called once per frame
@@ -58,6 +63,21 @@ public class moveit : MonoBehaviour
             rb2d.AddForce(new Vector2(0f, jumpForce));
             jump = false;
         }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            maxSpeed = slowMotion;
+
+        }
+
+        else
+        {
+            maxSpeed = 5f;
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+            gameObject.transform.position = startPostion;
+
     }
 
 
