@@ -11,19 +11,22 @@ public class moveit : MonoBehaviour
     public float jumpForce = 1000f;
     public Transform groundCheck;
 
+    //Marks the starting postition
     Vector3 startPostion;
 
+    //Slowed speed variable
     private const float slowMotion = 1;
 
     private bool grounded = false;
-  
+
+    //Rigid body for sprite
     private Rigidbody2D rb2d;
 
 
     // Use this for initialization
     void Awake()
     {
-  
+        //Gets the rigidbody of the 2d sprite attached to script
         rb2d = GetComponent<Rigidbody2D>();
         startPostion = gameObject.transform.position;
 
@@ -34,14 +37,16 @@ public class moveit : MonoBehaviour
     {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
+        //Tried to impliment a jumping physic but it did not work
         if (Input.GetButtonDown("Jump") && grounded)
         {
             jump = true;
         }
     }
-
+    //Goes after the update
     void FixedUpdate()
     {
+        //Allows player to use arrow keys or 'a'/'d' keys for movement
         float h = Input.GetAxis("Horizontal");
 
         
@@ -63,18 +68,18 @@ public class moveit : MonoBehaviour
             rb2d.AddForce(new Vector2(0f, jumpForce));
             jump = false;
         }
-
+        //Slow the movement to 1 frame rather than 5 with left shift key
         if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = slowMotion;
 
         }
-
+        //Resets back to normal game speed instead of slowed
         else
         {
             maxSpeed = 5f;
         }
-
+        //Resets game object to starting position
         if (Input.GetKey(KeyCode.Space))
             gameObject.transform.position = startPostion;
 

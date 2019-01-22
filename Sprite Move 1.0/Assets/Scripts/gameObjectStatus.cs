@@ -8,6 +8,7 @@ public class gameObjectStatus : MonoBehaviour
 
     private void Update()
     {
+        //Displays message saying player is inactive
         if (Player.activeInHierarchy == false)
             Debug.Log("Player inactive");
     }
